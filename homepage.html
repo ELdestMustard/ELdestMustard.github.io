@@ -1,1 +1,61 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playback - Arcade & Board Game Store</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Playback</h1>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#store">Store</a></li>
+                <li><a href="#checkout">Checkout</a></li>
+                <li><a href="#events">Events</a></li>
+            </ul>
+        </nav>
+    </header>
 
+    <main>
+        <section id="home">
+            <h2>Welcome to Playback!</h2>
+            <p>Your one-stop shop for all things arcade and board games.</p>
+        </section>
+
+        <section id="store">
+            <h2>Store</h2>
+            <div id="product-list">
+                <!-- Products will be populated here via JavaScript -->
+            </div>
+        </section>
+
+        <section id="checkout">
+            <h2>Checkout</h2>
+            <form id="checkout-form">
+                <input type="text" placeholder="Name" required>
+                <input type="email" placeholder="Email" required>
+                <input type="text" placeholder="Shipping Address" required>
+                <button type="submit">Complete Purchase</button>
+            </form>
+        </section>
+
+        <section id="events">
+            <h2>Event Booking</h2>
+            <form id="event-form">
+                <input type="text" placeholder="Event Name" required>
+                <input type="date" required>
+                <input type="time" required>
+                <button type="submit">Book Event</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Playback - Arcade & Board Game Store</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

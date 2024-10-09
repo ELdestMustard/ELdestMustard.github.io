@@ -48,9 +48,10 @@
         }
 
         #product-list {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            display: flex;
+            flex-wrap: wrap;
             gap: 20px;
+            justify-content: center;
         }
 
         .product {
@@ -59,6 +60,7 @@
             border-radius: 8px;
             padding: 10px;
             text-align: center;
+            width: 200px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
@@ -102,12 +104,14 @@
             width: 100%;
             height: 100%;
             overflow: auto;
-            background-color: rgba(0, 0, 0, 0.4);
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
         }
 
         .modal-content {
-            background-color: white;
-            margin: 15% auto;
+            background-color: #fefefe;
+            margin: 5% auto;
             padding: 20px;
             border: 1px solid #888;
             width: 80%;
@@ -127,30 +131,10 @@
             cursor: pointer;
         }
 
+        /* Checkout and Login/Signup Styles */
         section {
+            display: none;
             margin: 20px 0;
-        }
-
-        form {
-            background: white;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
-            margin: auto;
-        }
-
-        form input {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        form button {
-            width: 100%;
         }
     </style>
 </head>
@@ -160,20 +144,22 @@
     <h1>Playback</h1>
     <nav>
         <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#products">Products</a></li>
-            <li><a href="#checkout">Checkout</a></li>
-            <li><a href="#login">Login/Signup</a></li>
+            <li><a href="#" onclick="showSection('home')">Home</a></li>
+            <li><a href="#" onclick="showSection('products')">Products</a></li>
+            <li><a href="#" onclick="showSection('checkout')">Checkout</a></li>
+            <li><a href="#" onclick="showSection('login')">Login/Signup</a></li>
         </ul>
     </nav>
 </header>
 
 <main>
+    <!-- Home Section -->
     <section id="home">
         <h2>Welcome to Playback!</h2>
         <p>Your one-stop shop for all things arcade and board games.</p>
     </section>
 
+    <!-- Products Section -->
     <section id="products">
         <h2>Products</h2>
         <div id="product-list"></div>
@@ -188,6 +174,7 @@
         </div>
     </section>
 
+    <!-- Checkout Section -->
     <section id="checkout">
         <h2>Checkout</h2>
         <form id="checkout-form">
@@ -198,6 +185,7 @@
         </form>
     </section>
 
+    <!-- Login/Signup Section -->
     <section id="login">
         <h2>Login</h2>
         <form id="login-form">
@@ -219,103 +207,103 @@
 </footer>
 
 <script>
-// Sample products data
-const products = [
-    { id: 1, name: "Arcade Game 1", description: "Exciting arcade game for all ages.", price: 20.00, image: "https://via.placeholder.com/150" },
-    { id: 2, name: "Arcade Game 2", description: "Classic arcade experience.", price: 25.00, image: "https://via.placeholder.com/150" },
-    { id: 3, name: "Board Game 1", description: "Fun board game for family nights.", price: 30.00, image: "https://via.placeholder.com/150" },
-    { id: 4, name: "Board Game 2", description: "Strategic board game for enthusiasts.", price: 35.00, image: "https://via.placeholder.com/150" },
-    { id: 5, name: "Arcade Game 3", description: "Addictive arcade game.", price: 22.00, image: "https://via.placeholder.com/150" },
-    { id: 6, name: "Board Game 3", description: "Great for gatherings and parties.", price: 28.00, image: "https://via.placeholder.com/150" },
-    { id: 7, name: "Arcade Game 4", description: "New and exciting gameplay.", price: 18.00, image: "https://via.placeholder.com/150" },
-    { id: 8, name: "Board Game 4", description: "Challenging and fun!", price: 40.00, image: "https://via.placeholder.com/150" },
-    { id: 9, name: "Arcade Game 5", description: "A thrilling arcade experience.", price: 15.00, image: "https://via.placeholder.com/150" }
-];
+    // Sample products data
+    const products = [
+        { id: 1, name: "Arcade Game 1", description: "Exciting arcade game for all ages.", price: 20.00, image: "https://via.placeholder.com/150" },
+        { id: 2, name: "Arcade Game 2", description: "Classic arcade experience.", price: 25.00, image: "https://via.placeholder.com/150" },
+        { id: 3, name: "Board Game 1", description: "Fun board game for family nights.", price: 30.00, image: "https://via.placeholder.com/150" },
+        { id: 4, name: "Board Game 2", description: "Strategic board game for enthusiasts.", price: 35.00, image: "https://via.placeholder.com/150" },
+        { id: 5, name: "Arcade Game 3", description: "Addictive arcade game.", price: 22.00, image: "https://via.placeholder.com/150" },
+        { id: 6, name: "Board Game 3", description: "Great for gatherings and parties.", price: 28.00, image: "https://via.placeholder.com/150" },
+        { id: 7, name: "Arcade Game 4", description: "New and exciting gameplay.", price: 18.00, image: "https://via.placeholder.com/150" },
+        { id: 8, name: "Board Game 4", description: "Challenging and fun!", price: 40.00, image: "https://via.placeholder.com/150" },
+        { id: 9, name: "Arcade Game 5", description: "A thrilling arcade experience.", price: 15.00, image: "https://via.placeholder.com/150" }
+    ];
 
-// Cart functionality
-let cart = [];
+    // Cart functionality
+    let cart = [];
 
-// Function to display products
-function displayProducts() {
-    const productList = document.getElementById("product-list");
-    products.forEach(product => {
-        const productDiv = document.createElement("div");
-        productDiv.classList.add("product");
-        productDiv.innerHTML = `
-            <img src="${product.image}" alt="${product.name}">
-            <h3>${product.name}</h3>
-            <p>${product.description}</p>
-            <p>Price: $${product.price.toFixed(2)}</p>
-            <button onclick="addToCart(${product.id})">Add to Cart</button>
-        `;
-        productList.appendChild(productDiv);
-    });
-}
+    // Show specified section
+    function showSection(sectionId) {
+        const sections = document.querySelectorAll('main > section');
+        sections.forEach(section => {
+            section.style.display = 'none';
+        });
+        document.getElementById(sectionId).style.display = 'block';
 
-// Add to cart
-function addToCart(productId) {
-    const product = products.find(p => p.id === productId);
-    cart.push(product);
-    alert(`${product.name} has been added to your cart!`);
-}
-
-// Cart modal
-const modal = document.getElementById("cart-modal");
-const btn = document.getElementById("view-cart");
-const span = document.getElementsByClassName("close")[0];
-const cartItemsDiv = document.getElementById("cart-items");
-const clearCartButton = document.getElementById("clear-cart");
-
-// Show cart modal
-btn.onclick = function() {
-    displayCartItems();
-    modal.style.display = "block";
-}
-
-// Close modal
-span.onclick = function() {
-    modal.style.display = "none";
-}
-
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
+        if (sectionId === 'products') {
+            displayProducts();
+        }
     }
-}
 
-// Display cart items
-function displayCartItems() {
-    cartItemsDiv.innerHTML = "";
-    cart.forEach((item) => {
-        cartItemsDiv.innerHTML += `<p>${item.name} - $${item.price.toFixed(2)}</p>`;
+    // Function to display products
+    function displayProducts() {
+        const productList = document.getElementById("product-list");
+        productList.innerHTML = ""; // Clear previous products
+        products.forEach(product => {
+            const productDiv = document.createElement("div");
+            productDiv.classList.add("product");
+            productDiv.innerHTML = `
+                <img src="${product.image}" alt="${product.name}">
+                <h3>${product.name}</h3>
+                <p>${product.description}</p>
+                <p>Price: $${product.price.toFixed(2)}</p>
+                <button onclick="addToCart(${product.id})">Add to Cart</button>
+            `;
+            productList.appendChild(productDiv);
+        });
+    }
+
+    // Add to cart
+    function addToCart(productId) {
+        const product = products.find(p => p.id === productId);
+        cart.push(product);
+        alert(`${product.name} has been added to your cart!`);
+    }
+
+    // Show cart modal
+    document.getElementById('view-cart').onclick = function() {
+        const cartModal = document.getElementById('cart-modal');
+        const cartItems = document.getElementById('cart-items');
+        cartItems.innerHTML = '';
+
+        cart.forEach(item => {
+            cartItems.innerHTML += `<p>${item.name} - $${item.price.toFixed(2)}</p>`;
+        });
+
+        cartModal.style.display = 'block';
+    };
+
+    // Close modal
+    document.querySelector('.close').onclick = function() {
+        document.getElementById('cart-modal').style.display = 'none';
+    };
+
+    // Clear cart
+    document.getElementById('clear-cart').onclick = function() {
+        cart = [];
+        document.getElementById('cart-items').innerHTML = '<p>Cart is empty.</p>';
+        alert('Cart has been cleared!');
+    };
+
+    // Handle login
+    document.getElementById("login-form").addEventListener("submit", function(event) {
+        event.preventDefault();
+        const username = event.target.username.value;
+        alert(`Logged in as ${username}`);
     });
-}
 
-// Clear cart
-clearCartButton.onclick = function() {
-    cart = [];
-    alert("Cart has been cleared!");
-    displayCartItems();
-}
+    // Handle signup
+    document.getElementById("signup-form").addEventListener("submit", function(event) {
+        event.preventDefault();
+        const username = event.target.username.value;
+        alert(`Signed up as ${username}`);
+    });
 
-// Login and Signup
-document.getElementById("login-form").addEventListener("submit", function(event) {
-    event.preventDefault();
-    const username = event.target.username.value;
-    const password = event.target.password.value;
-    alert(`Logged in as ${username}`);
-});
-
-document.getElementById("signup-form").addEventListener("submit", function(event) {
-    event.preventDefault();
-    const username = event.target.username.value;
-    const password = event.target.password.value;
-    alert(`Signed up as ${username}`);
-});
-
-// Call displayProducts on page load
-window.onload = displayProducts;
+    // Show home section on load
+    window.onload = function() {
+        showSection('home');
+    };
 </script>
-
 </body>
 </html>

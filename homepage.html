@@ -156,8 +156,7 @@
     <!-- Home Section -->
     <section id="home">
         <h2>Welcome to Playback!</h2>
-        <p>
-At Playback, we believe that the joy of gaming should be accessible to everyone, and our carefully curated selection of arcade and board games reflects just that. By choosing us, you're not only investing in top-quality games that provide endless entertainment, but you're also supporting a community-focused store that prioritizes customer satisfaction and experience. Our knowledgeable staff is passionate about gaming and is always ready to help you find the perfect game for any occasion, whether it's a family gathering, a cozy night in, or a fun-filled party with friends. Plus, our competitive prices and exclusive promotions ensure you get the best value for your money. Dive into a world of adventure, strategy, and fun with Playback—where every purchase brings you one step closer to unforgettable memories and thrilling gameplay!.</p>
+        <p>Your one-stop shop for all things arcade and board games.</p>
     </section>
 
     <!-- Products Section -->
@@ -208,17 +207,17 @@ At Playback, we believe that the joy of gaming should be accessible to everyone,
 </footer>
 
 <script>
-    // Sample products data
+    // Sample products data with updated names and images
     const products = [
-        { id: 1, name: "Arcade Game 1", description: "Exciting arcade game for all ages.", price: 20.00, image: "https://via.placeholder.com/150" },
-        { id: 2, name: "Arcade Game 2", description: "Classic arcade experience.", price: 25.00, image: "https://via.placeholder.com/150" },
-        { id: 3, name: "Board Game 1", description: "Fun board game for family nights.", price: 30.00, image: "https://via.placeholder.com/150" },
-        { id: 4, name: "Board Game 2", description: "Strategic board game for enthusiasts.", price: 35.00, image: "https://via.placeholder.com/150" },
-        { id: 5, name: "Arcade Game 3", description: "Addictive arcade game.", price: 22.00, image: "https://via.placeholder.com/150" },
-        { id: 6, name: "Board Game 3", description: "Great for gatherings and parties.", price: 28.00, image: "https://via.placeholder.com/150" },
-        { id: 7, name: "Arcade Game 4", description: "New and exciting gameplay.", price: 18.00, image: "https://via.placeholder.com/150" },
-        { id: 8, name: "Board Game 4", description: "Challenging and fun!", price: 40.00, image: "https://via.placeholder.com/150" },
-        { id: 9, name: "Arcade Game 5", description: "A thrilling arcade experience.", price: 15.00, image: "https://via.placeholder.com/150" }
+        { id: 1, name: "Retro Racer", description: "A thrilling racing arcade game.", price: 20.00, image: "https://upload.wikimedia.org/wikipedia/en/1/1e/Race_Car_Thunder_Logo.png" },
+        { id: 2, name: "Zombie Apocalypse", description: "Survive the undead in this exciting arcade shooter.", price: 25.00, image: "https://upload.wikimedia.org/wikipedia/en/b/b4/Zombie_Apocalypse_cover.jpg" },
+        { id: 3, name: "Mystery Mansion", description: "Unravel the secrets in this board game of suspense.", price: 30.00, image: "https://upload.wikimedia.org/wikipedia/en/a/a5/Mystery_Mansion_Board_Game.jpg" },
+        { id: 4, name: "Galactic Adventure", description: "Explore the universe in this space-themed board game.", price: 35.00, image: "https://upload.wikimedia.org/wikipedia/en/6/6b/Galactic_Adventure_Board_Game.jpg" },
+        { id: 5, name: "Space Invaders", description: "A classic arcade shooter experience.", price: 22.00, image: "https://upload.wikimedia.org/wikipedia/en/0/0e/Space_Invaders_logo.png" },
+        { id: 6, name: "Dungeon Quest", description: "A strategic board game filled with adventure.", price: 28.00, image: "https://upload.wikimedia.org/wikipedia/en/5/5f/Dungeon_Quest_Board_Game.jpg" },
+        { id: 7, name: "Pixel Puzzles", description: "Solve puzzles in this colorful arcade game.", price: 18.00, image: "https://upload.wikimedia.org/wikipedia/en/9/9c/Puzzle_Logo.png" },
+        { id: 8, name: "Catan Conquest", description: "Build your empire in this popular board game.", price: 40.00, image: "https://upload.wikimedia.org/wikipedia/en/6/67/Settlers_of_Catan_box_cover.jpg" },
+        { id: 9, name: "Sonic Speed", description: "Race against time in this fast-paced arcade game.", price: 15.00, image: "https://upload.wikimedia.org/wikipedia/en/5/54/Sonic_the_Hedgehog_3_logo.png" }
     ];
 
     // Cart functionality
@@ -255,7 +254,7 @@ At Playback, we believe that the joy of gaming should be accessible to everyone,
         });
     }
 
-    // Add to cart
+    // Simulate adding to cart
     function addToCart(productId) {
         const product = products.find(p => p.id === productId);
         cart.push(product);
@@ -268,9 +267,13 @@ At Playback, we believe that the joy of gaming should be accessible to everyone,
         const cartItems = document.getElementById('cart-items');
         cartItems.innerHTML = '';
 
-        cart.forEach(item => {
-            cartItems.innerHTML += `<p>${item.name} - $${item.price.toFixed(2)}</p>`;
-        });
+        if (cart.length === 0) {
+            cartItems.innerHTML = '<p>Cart is empty.</p>';
+        } else {
+            cart.forEach(item => {
+                cartItems.innerHTML += `<p>${item.name} - $${item.price.toFixed(2)}</p>`;
+            });
+        }
 
         cartModal.style.display = 'block';
     };
@@ -308,3 +311,4 @@ At Playback, we believe that the joy of gaming should be accessible to everyone,
 </script>
 </body>
 </html>
+

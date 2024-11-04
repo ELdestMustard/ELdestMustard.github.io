@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Cucina Italiana - Home</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="nav">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="menu.html">Menu</a></li>
+            <li><a href="reservation.html">Reservation</a></li>
+            <li><a href="reviews.html">Reviews</a></li>
+            <li><a href="cart.html"><span id="cart-icon">🛒</span></a></li>
+        </ul>
+    </nav>
+
+    <div id="home" class="page active">
+        <div class="hero">
+            <h1>La Cucina Italiana</h1>
+        </div>
+        <div class="container">
+            <h2>Our Story</h2>
+            <p>Founded in 1985 by the Rossi family, La Cucina Italiana brings authentic Italian flavors to your table. Our recipes have been passed down through generations, preserving the true essence of Italian cuisine.</p>
+            <p>What started as a small family restaurant has grown into a beloved establishment, serving the community for over three decades. Each dish is prepared with love and the finest ingredients imported directly from Italy.</p>
+        </div>
+    </div>
+
+    <div class="cart-popup" id="cart-popup">
+        <h3>Cart</h3>
+        <div class="cart-items">
+            <!-- Cart items will be dynamically added here -->
+        </div>
+        <div id="cart-total">Total: $0.00</div>
+        <button onclick="clearCart()">Clear Cart</button>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 La Cucina Italiana. All rights reserved.</p>
+        <p>Contact us: info@lacucinaitaliana.com | Phone: (123) 456-7890</p>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

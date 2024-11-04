@@ -71,3 +71,56 @@ function updateCartDisplayOnCheckout() {
 if (window.location.pathname.endsWith('cart.html')) {
     loadCartItems();
 }
+
+// Reservation handling
+function handleReservation(event) {
+    event.preventDefault();
+    const formElements = event.target.elements;
+    const reservationDetails = {
+        name: formElements[0].value,
+        email: formElements[1].value,
+        date: formElements[2].value,
+        time: formElements[3].value,
+        partySize: formElements[4].value
+    };
+    console.log("Reservation Details:", reservationDetails);
+    alert('Reservation made successfully!');
+    event.target.reset();
+}
+
+// Payment handling
+function handlePayment(event) {
+    event.preventDefault();
+    const paymentDetails = {
+        cardNumber: event.target.elements[0].value,
+        expiry: event.target.elements[1].value,
+        cvv: event.target.elements[2].value
+    };
+    console.log("Payment Details:", paymentDetails);
+    alert('Payment processed successfully!');
+    cart = []; // Clears the cart
+    clearCart();
+    localStorage.removeItem('cart'); // Remove the cart from local storage
+}
+
+// Review handling
+function handleReview(event) {
+    event.preventDefault();
+    const formElements = event.target.elements;
+    const reviewDetails = {
+        name: formElements[0].value,
+        rating: formElements[1].value,
+        review: formElements[2].value
+    };
+    console.log("Review Details:", reviewDetails);
+    alert('Thank you for your review!');
+
+    const reviewsContainer = document.querySelector('.reviews-container');
+    reviewsContainer.innerHTML += `<div class="review">
+        <div class="stars">${'★'.repeat(reviewDetails.rating) + '☆'.repeat(5 - reviewDetails.rating)}</div>
+        <p>"${reviewDetails.review}"</p>
+        <small>- ${reviewDetails.name}</small>
+    </div>`;
+
+    event.target.reset();
+}

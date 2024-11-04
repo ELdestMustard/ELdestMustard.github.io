@@ -40,7 +40,6 @@
             font-weight: bold;
             text-shadow: 1px 1px 1px rgba(255,255,255,0.5);
             transition: transform 0.3s ease;
-            cursor: pointer;
         }
 
         .nav a:hover {
@@ -52,14 +51,6 @@
             max-width: 1200px;
             margin: 80px auto 0;
             padding: 2rem;
-        }
-
-        .page {
-            display: none;
-        }
-
-        .page.active {
-            display: block;
         }
 
         .hero {
@@ -144,75 +135,53 @@
             margin: 0.5rem 0;
         }
 
-        /* Cart Popup Styles */
-        .cart-popup {
+        /* Floating Cart Styles */
+        .floating-cart {
             position: fixed;
             top: 80px;
             right: -400px;
             width: 350px;
             height: calc(100vh - 100px);
             background: white;
-            padding: 1rem;
-            box-shadow: -2px 0 5px rgba(0,0,0,0.2);
+            box-shadow: -2px 0 5px rgba(0,0,0,0.1);
             transition: right 0.3s ease;
-            z-index: 1000;
-            border-left: 3px solid #009246;
+            z-index: 999;
+            padding: 1rem;
             overflow-y: auto;
         }
 
-        .cart-popup.active {
+        .floating-cart.active {
             right: 0;
         }
 
-        .cart-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid #ddd;
-        }
-
-        .close-cart {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
+        .cart-toggle {
+            position: fixed;
+            top: 100px;
+            right: 0;
+            background: #ce2b37;
+            color: white;
+            padding: 0.5rem 1rem;
             cursor: pointer;
-            color: #ce2b37;
+            border-radius: 4px 0 0 4px;
+            z-index: 1000;
         }
 
         .cart-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0.5rem;
+            padding: 1rem;
             border-bottom: 1px solid #ddd;
-            margin-bottom: 0.5rem;
-        }
-
-        .cart-item-controls {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .cart-item-quantity {
-            width: 40px;
-            text-align: center;
         }
 
         .cart-total {
             margin-top: 1rem;
             padding-top: 1rem;
-            border-top: 2px solid #ddd;
+            border-top: 2px solid #009246;
+            font-weight: bold;
         }
 
-        .checkout-btn {
-            width: 100%;
-            margin-top: 1rem;
-        }
-
-        /* Original styles remain the same */
+        /* Form Styles */
         .reservation-form, .review-form {
             max-width: 600px;
             margin: 0 auto;
@@ -235,11 +204,6 @@
             transition: border-color 0.3s ease;
         }
 
-        input:focus, select:focus, textarea:focus {
-            outline: none;
-            border-color: #009246;
-        }
-
         button {
             background-color: #ce2b37;
             color: white;
@@ -252,22 +216,23 @@
 
         button:hover {
             background-color: #009246;
-            transform: translateY(-2px);
         }
 
-        .review {
-            border-bottom: 1px solid #ddd;
-            padding: 1rem 0;
-            margin-bottom: 1rem;
-        }
-
-        .stars {
-            color: #ce2b37;
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
+        footer {
+            background: linear-gradient(90deg, #009246 33%, #ffffff 33%, #ffffff 66%, #ce2b37 66%);
+            color: #1a1a1a;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+            font-weight: bold;
         }
 
         @media (max-width: 768px) {
+            .floating-cart {
+                width: 100%;
+                right: -100%;
+            }
+            
             .nav ul {
                 flex-direction: column;
                 align-items: center;
@@ -276,155 +241,98 @@
             .hero h1 {
                 font-size: 2.5rem;
             }
-
-            .cart-popup {
-                width: 100%;
-                right: -100%;
-            }
         }
     </style>
 </head>
 <body>
     <nav class="nav">
         <ul>
-            <li><a onclick="showPage('home')">Home</a></li>
-            <li><a onclick="showPage('menu')">Menu</a></li>
-            <li><a onclick="showPage('reservation')">Reservation</a></li>
-            <li><a onclick="showPage('reviews')">Reviews</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="menu.html">Menu</a></li>
+            <li><a href="reservation.html">Reservation</a></li>
+            <li><a href="reviews.html">Reviews</a></li>
         </ul>
     </nav>
 
-    <!-- Cart Popup -->
-    <div class="cart-popup">
-        <div class="cart-header">
-            <h3>Your Cart</h3>
-            <button class="close-cart" onclick="toggleCart()">×</button>
-        </div>
-        <div class="cart-items"></div>
-        <div class="cart-total">
-            <h4>Total: $<span id="cart-total-amount">0.00</span></h4>
-            <button onclick="showPage('checkout')" class="checkout-btn">Proceed to Checkout</button>
-        </div>
+    <!-- Floating Cart -->
+    <div class="cart-toggle" onclick="toggleCart()">
+        Cart (<span id="cart-count">0</span>)
+    </div>
+    <div class="floating-cart" id="floating-cart">
+        <h3>Your Cart</h3>
+        <div id="cart-items"></div>
+        <div id="cart-total" class="cart-total">Total: $0.00</div>
+        <button onclick="checkout()" style="margin-top: 1rem; width: 100%;">Checkout</button>
     </div>
 
-    <!-- Home Page -->
-    <div id="home" class="page active">
-        <div class="hero">
-            <h1>La Cucina Italiana</h1>
-        </div>
-        <div class="container">
-            <h2>Our Story</h2>
-            <p>Founded in 1985 by the Rossi family, La Cucina Italiana brings authentic Italian flavors to your table. Our recipes have been passed down through generations, preserving the true essence of Italian cuisine.</p>
-            <p>What started as a small family restaurant has grown into a beloved establishment, serving the community for over three decades. Each dish is prepared with love and the finest ingredients imported directly from Italy.</p>
-        </div>
+    <!-- Content for index.html -->
+    <div class="hero">
+        <h1>La Cucina Italiana</h1>
+    </div>
+    <div class="container">
+        <h2>Our Story</h2>
+        <p>Founded in 1985 by the Rossi family, La Cucina Italiana brings authentic Italian flavors to your table. Our recipes have been passed down through generations, preserving the true essence of Italian cuisine.</p>
+        <p>What started as a small family restaurant has grown into a beloved establishment, serving the community for over three decades. Each dish is prepared with love and the finest ingredients imported directly from Italy.</p>
     </div>
 
-    <!-- Menu Page -->
-    <div id="menu" class="page">
-        <div class="container">
-            <h2>Our Menu</h2>
-            <div class="menu-grid">
-                <!-- Original menu items remain the same -->
-                <div class="menu-item">
-                    <img src="/api/placeholder/300/200" alt="Margherita Pizza">
-                    <h3>Margherita Pizza</h3>
-                    <p>Fresh tomatoes, mozzarella, basil</p>
-                    <p class="price">$16.99</p>
-                    <button onclick="addToCart('Margherita Pizza', 16.99)">Add to Cart</button>
-                </div>
-                <!-- Add other menu items here -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Reservation Page -->
-    <div id="reservation" class="page">
-        <div class="container">
-            <h2>Make a Reservation</h2>
-            <!-- Original reservation form remains the same -->
-        </div>
-    </div>
-
-    <!-- Reviews Page -->
-    <div id="reviews" class="page">
-        <div class="container">
-            <h2>Customer Reviews</h2>
-            <!-- Original reviews content remains the same -->
-        </div>
-    </div>
-
-    <!-- Checkout Page -->
-    <div id="checkout" class="page">
-        <div class="container">
-            <h2>Checkout</h2>
-            <!-- Original checkout content remains the same -->
-        </div>
-    </div>
+    <footer>
+        <p>&copy; 2024 La Cucina Italiana. All rights reserved.</p>
+    </footer>
 
     <script>
-        // Page Navigation
-        function showPage(pageId) {
-            document.querySelectorAll('.page').forEach(page => {
-                page.classList.remove('active');
-            });
-            document.getElementById(pageId).classList.add('active');
-        }
-
         // Cart functionality
         let cart = [];
         
         function toggleCart() {
-            document.querySelector('.cart-popup').classList.toggle('active');
+            const cart = document.getElementById('floating-cart');
+            cart.classList.toggle('active');
         }
 
         function addToCart(name, price) {
-            const existingItem = cart.find(item => item.name === name);
-            
-            if (existingItem) {
-                existingItem.quantity += 1;
-            } else {
-                cart.push({ name, price, quantity: 1 });
-            }
-            
-            updateCartDisplay();
-            toggleCart();
+            cart.push({ name, price });
+            updateCart();
+            document.getElementById('floating-cart').classList.add('active');
         }
 
-        function updateCartDisplay() {
-            const cartItems = document.querySelector('.cart-items');
-            const totalAmount = document.getElementById('cart-total-amount');
+        function updateCart() {
+            const cartItems = document.getElementById('cart-items');
+            const cartCount = document.getElementById('cart-count');
+            const cartTotal = document.getElementById('cart-total');
             
             cartItems.innerHTML = '';
             let total = 0;
 
             cart.forEach((item, index) => {
-                const itemTotal = item.price * item.quantity;
-                total += itemTotal;
-                
-                cartItems.innerHTML += `
-                    <div class="cart-item">
-                        <span>${item.name}</span>
-                        <div class="cart-item-controls">
-                            <button onclick="updateQuantity(${index}, -1)">-</button>
-                            <span class="cart-item-quantity">${item.quantity}</span>
-                            <button onclick="updateQuantity(${index}, 1)">+</button>
-                            <span>$${itemTotal.toFixed(2)}</span>
-                        </div>
-                    </div>
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'cart-item';
+                itemDiv.innerHTML = `
+                    <span>${item.name}</span>
+                    <span>$${item.price.toFixed(2)}</span>
+                    <button onclick="removeFromCart(${index})" style="padding: 0.2rem 0.5rem;">×</button>
                 `;
+                cartItems.appendChild(itemDiv);
+                total += item.price;
             });
 
-            totalAmount.textContent = total.toFixed(2);
+            cartCount.textContent = cart.length;
+            cartTotal.textContent = `Total: $${total.toFixed(2)}`;
         }
 
-        function updateQuantity(index, change) {
-            cart[index].quantity += change;
-            
-            if (cart[index].quantity < 1) {
-                cart.splice(index, 1);
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCart();
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
             }
-            
-            updateCartDisplay();
+            // Implement checkout logic here
+            alert('Thank you for your order!');
+            cart = [];
+            updateCart();
+            document.getElementById('floating-cart').classList.remove('active');
         }
     </script>
 </body>

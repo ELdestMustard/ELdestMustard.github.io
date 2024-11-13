@@ -22,7 +22,108 @@
             <h2>Our Menu</h2>
             <div class="menu-grid">
                 <div class="menu-item">
+                    <img src="<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Cucina Italiana - Menu</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="nav">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="menu.html">Menu</a></li>
+            <li><a href="reservation.html">Reservation</a></li>
+            <li><a href="reviews.html">Reviews</a></li>
+            <li><a href="cart.html"><span id="cart-icon">🛒</span></a></li>
+        </ul>
+    </nav>
+
+    <div id="menu" class="page">
+        <div class="container">
+            <h2>Our Menu</h2>
+            <div class="menu-grid">
+                <div class="menu-item">
                     <img src="/api/placeholder/300/200" alt="Margherita Pizza">
+                    <h3>Margherita Pizza</h3>
+                    <p>Fresh tomatoes, mozzarella, basil</p>
+                    <p class="price">$16.99</p>
+                    <button onclick="addToCart('Margherita Pizza', 16.99)">Add to Cart</button>
+                </div>
+                <div class="menu-item">
+                    <img src="/api/placeholder/300/200" alt="Pasta Carbonara">
+                    <h3>Pasta Carbonara</h3>
+                    <p>Spaghetti, eggs, pecorino romano, guanciale</p>
+                    <p class="price">$18.99</p>
+                    <button onclick="addToCart('Pasta Carbonara', 18.99)">Add to Cart</button>
+                </div>
+                <div class="menu-item">
+                    <img src="/api/placeholder/300/200" alt="Osso Buco">
+                    <h3>Osso Buco</h3>
+                    <p>Braised veal shanks with gremolata</p>
+                    <p class="price">$28.99</p>
+                    <button onclick="addToCart('Osso Buco', 28.99)">Add to Cart</button>
+                </div>
+                <div class="menu-item">
+                    <img src="/api/placeholder/300/200" alt="Risotto ai Funghi">
+                    <h3>Risotto ai Funghi</h3>
+                    <p>Creamy risotto with porcini mushrooms</p>
+                    <p class="price">$22.99</p>
+                    <button onclick="addToCart('Risotto ai Funghi', 22.99)">Add to Cart</button>
+                </div>
+                <div class="menu-item">
+                    <img src="/api/placeholder/300/200" alt="Lasagna alla Bolognese">
+                    <h3>Lasagna alla Bolognese</h3>
+                    <p>Layered pasta with meat ragù and béchamel</p>
+                    <p class="price">$19.99</p>
+                    <button onclick="addToCart('Lasagna alla Bolognese', 19.99)">Add to Cart</button>
+                </div>
+                <div class="menu-item">
+                    <img src="/api/placeholder/300/200" alt="Tiramisu">
+                    <h3>Tiramisu</h3>
+                    <p>Classic coffee-flavored dessert</p>
+                    <p class="price">$9.99</p>
+                    <button onclick="addToCart('Tiramisu', 9.99)">Add to Cart</button>
+                </div>
+                <div class="menu-item">
+                    <img src="/api/placeholder/300/200" alt="Gnocchi al Pesto">
+                    <h3>Gnocchi al Pesto</h3>
+                    <p>Potato dumplings with fresh basil pesto</p>
+                    <p class="price">$17.99</p>
+                    <button onclick="addToCart('Gnocchi al Pesto', 17.99)">Add to Cart</button>
+                </div>
+                <div class="menu-item">
+                    <img src="/api/placeholder/300/200" alt="Calamari Fritti">
+                    <h3>Calamari Fritti</h3>
+                    <p>Crispy fried squid with marinara sauce</p>
+                    <p class="price">$15.99</p>
+                    <button onclick="addToCart('Calamari Fritti', 15.99)">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="cart-popup" id="cart-popup">
+        <h3>Cart</h3>
+        <div class="cart-items">
+            <!-- Cart items will be dynamically added here -->
+        </div>
+        <div id="cart-total">Total: $0.00</div>
+        <button onclick="clearCart()">Clear Cart</button>
+        <button onclick="proceedToCheckout()">Proceed to Checkout</button>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 La Cucina Italiana. All rights reserved.</p>
+        <p>Contact us: info@lacucinaitaliana.com | Phone: (123) 456-7890</p>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
+" alt="Margherita Pizza">
                     <h3>Margherita Pizza</h3>
                     <p>Fresh tomatoes, mozzarella, basil</p>
                     <p class="price">$16.99</p>
